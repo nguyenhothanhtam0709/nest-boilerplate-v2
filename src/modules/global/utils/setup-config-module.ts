@@ -14,6 +14,9 @@ const validationSchema = Joi.object({
   [EnvKeyName.API_PORT]: Joi.number().default(DEFAULT_API_PORT),
 
   // database
+
+  // sentry
+  [EnvKeyName.SENTRY_DSN]: Joi.string(),
 });
 
 export const SetupConfigModule = () =>
