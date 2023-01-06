@@ -7,7 +7,7 @@ import { format, transports } from 'winston';
 import { LogLevels, logLevels } from '@enums/logger';
 import { ConfigService } from '@nestjs/config';
 import * as Sentry from '@sentry/node';
-import { SentryTransport } from '../utils/sentry-transport';
+import { SentryTransport } from './sentry-transport';
 
 export const configLoggerModule = () =>
   WinstonModule.forRootAsync({

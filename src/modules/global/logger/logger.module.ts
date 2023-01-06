@@ -3,7 +3,7 @@ import { Logger } from 'winston';
 import { LOGGER } from '@constants/provider';
 import { Global, Module } from '@nestjs/common';
 import { CustomLoggerService } from './logger.service';
-import { configLoggerModule } from './setup-logger-module';
+import { configLoggerModule } from './utils/setup-logger-module';
 
 @Global()
 @Module({
