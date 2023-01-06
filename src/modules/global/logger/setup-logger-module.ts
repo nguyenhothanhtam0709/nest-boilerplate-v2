@@ -4,7 +4,10 @@ import {
   utilities as nestWinstonModuleUtilities,
 } from 'nest-winston';
 import { format, transports } from 'winston';
+import { LogLevels, logLevels } from '@enums/logger';
 import { ConfigService } from '@nestjs/config';
+import * as Sentry from '@sentry/node';
+import { SentryTransport } from '../utils/sentry-transport';
 
 export const configLoggerModule = () =>
   WinstonModule.forRootAsync({
@@ -26,8 +29,13 @@ export const configLoggerModule = () =>
         ),
       });
 
+      const sentryTransport = new SentryTransport(Sentry, {
+        level: LogLevels.SENTRY,
+      });
+
       const config: WinstonModuleOptions = {
-        transports: [consoleTransport, fileTransport],
+        levels: logLevels,
+        transports: [consoleTransport, fileTransport, sentryTransport],
       };
 
       return config;

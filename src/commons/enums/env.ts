@@ -7,4 +7,7 @@ export const EnvKeyName = {
   API_PORT: 'API_PORT',
 
   // database
+
+  // sentry
+  SENTRY_DSN: 'SENTRY_DSN',
 };

@@ -1,6 +1,6 @@
-import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { LOGGER } from '@constants/provider';
 import { EnvKeyName } from '@enums/env';
-import { LoggerService } from '@nestjs/common';
+import { ILogger } from '@modules/global/logger/logger.service';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -10,8 +10,8 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
-  const logger = app.get<LoggerService>(WINSTON_MODULE_NEST_PROVIDER);
+  app.useLogger(app.get(LOGGER));
+  const logger = app.get<ILogger>(LOGGER);
   const configService = app.get(ConfigService);
 
   const port = configService.get<number>(EnvKeyName.API_PORT);
