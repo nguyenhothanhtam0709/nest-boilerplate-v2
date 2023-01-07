@@ -19,7 +19,7 @@ const validationSchema = Joi.object({
   [EnvKeyName.SENTRY_DSN]: Joi.string(),
 });
 
-export const SetupConfigModule = () =>
+export const setupConfigModule = () =>
   ConfigModule.forRoot({
     isGlobal: true,
     validationSchema,

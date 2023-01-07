@@ -1,4 +1,3 @@
-import { LOGGER } from '@constants/provider';
 import { EnvKeyName } from '@enums/env';
 import { ILogger } from '@modules/global/logger/logger.service';
 import { ConfigService } from '@nestjs/config';
@@ -10,8 +9,8 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.useLogger(app.get(LOGGER));
-  const logger = app.get<ILogger>(LOGGER);
+  app.useLogger(app.get(ILogger));
+  const logger = app.get<ILogger>(ILogger);
   const configService = app.get(ConfigService);
 
   const port = configService.get<number>(EnvKeyName.API_PORT);

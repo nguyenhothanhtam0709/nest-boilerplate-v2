@@ -1,19 +1,22 @@
-import { WinstonLogger } from 'nest-winston';
+import { WINSTON_MODULE_PROVIDER, WinstonLogger } from 'nest-winston';
 import { Logger } from 'winston';
 import { LogLevels } from '@enums/logger';
-import { LoggerService } from '@nestjs/common';
+import { Inject, LoggerService } from '@nestjs/common';
+
+export const ILogger = Symbol('ILogger');
 
 export interface ILogger extends LoggerService {
   sentryLog(message: any, context?: string): Logger;
 }
 
-export class CustomLoggerService extends WinstonLogger {
-  private readonly _logger: Logger;
+export class CustomLoggerService extends WinstonLogger implements ILogger {
   private _context?: any;
 
-  constructor(logger: Logger) {
-    super(logger);
-    this._logger = logger;
+  constructor(
+    @Inject(WINSTON_MODULE_PROVIDER)
+    private readonly _logger: Logger,
+  ) {
+    super(_logger);
   }
 
   setContext(context: string): void {

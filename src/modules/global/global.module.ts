@@ -1,12 +1,13 @@
+import { EnvKeyName } from '@enums/env';
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RewriteFrames } from '@sentry/integrations';
 import * as Sentry from '@sentry/node';
+import { setupConfigModule } from './config/setup-config-module';
 import { LoggerModule } from './logger/logger.module';
-import { SetupConfigModule } from './utils/setup-config-module';
 
 @Module({
-  imports: [SetupConfigModule(), LoggerModule],
+  imports: [setupConfigModule(), LoggerModule],
 })
 export class GlobalModule implements OnModuleInit {
   constructor(private readonly configService: ConfigService) {}
@@ -16,7 +17,7 @@ export class GlobalModule implements OnModuleInit {
      * init Sentry
      */
     Sentry.init({
-      dsn: process.env.SENTRY_DSN,
+      dsn: this.configService.get<string>(EnvKeyName.SENTRY_DSN),
       tracesSampleRate: 1.0,
       integrations: [
         new RewriteFrames({
