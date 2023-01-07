@@ -23,9 +23,7 @@ export class CustomHealthCheckService implements IHealthCheckService {
 
     @Inject(MemoryHealthIndicator)
     private readonly memoryCheck: MemoryHealthIndicator,
-  ) {
-    console.log('constructor');
-  }
+  ) {}
 
   public checkDisk(): Promise<HealthCheckResult> {
     return this.healthCheck.check([

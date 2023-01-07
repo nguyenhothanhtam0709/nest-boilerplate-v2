@@ -1,8 +1,5 @@
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { Logger } from 'winston';
-import { LOGGER } from '@constants/provider';
 import { Global, Module } from '@nestjs/common';
-import { CustomLoggerService } from './logger.service';
+import { CustomLoggerService, ILogger } from './logger.service';
 import { configLoggerModule } from './utils/setup-logger-module';
 
 @Global()
@@ -10,13 +7,10 @@ import { configLoggerModule } from './utils/setup-logger-module';
   imports: [configLoggerModule()],
   providers: [
     {
-      provide: LOGGER,
-      inject: [WINSTON_MODULE_PROVIDER],
-      useFactory: (logger: Logger) => {
-        return new CustomLoggerService(logger);
-      },
+      provide: ILogger,
+      useClass: CustomLoggerService,
     },
   ],
-  exports: [LOGGER],
+  exports: [ILogger],
 })
 export class LoggerModule {}
