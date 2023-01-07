@@ -1,3 +1,4 @@
+import { EnvKeyName } from '@enums/env';
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RewriteFrames } from '@sentry/integrations';
@@ -16,7 +17,7 @@ export class GlobalModule implements OnModuleInit {
      * init Sentry
      */
     Sentry.init({
-      dsn: process.env.SENTRY_DSN,
+      dsn: this.configService.get<string>(EnvKeyName.SENTRY_DSN),
       tracesSampleRate: 1.0,
       integrations: [
         new RewriteFrames({

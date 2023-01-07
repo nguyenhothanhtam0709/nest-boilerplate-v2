@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+export const IAppService = Symbol('IAppService');
 
-@Injectable()
-export class AppService {
-  getHello(): string {
+export interface IAppService {
+  getHello(): string;
+}
+
+export class AppService implements IAppService {
+  public getHello(): string {
     return 'Hello World!';
   }
 }
