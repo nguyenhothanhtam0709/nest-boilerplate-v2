@@ -2,11 +2,11 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RewriteFrames } from '@sentry/integrations';
 import * as Sentry from '@sentry/node';
+import { setupConfigModule } from './config/setup-config-module';
 import { LoggerModule } from './logger/logger.module';
-import { SetupConfigModule } from './utils/setup-config-module';
 
 @Module({
-  imports: [SetupConfigModule(), LoggerModule],
+  imports: [setupConfigModule(), LoggerModule],
 })
 export class GlobalModule implements OnModuleInit {
   constructor(private readonly configService: ConfigService) {}
